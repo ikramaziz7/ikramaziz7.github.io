@@ -1,0 +1,786 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Ikram Aziz</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap">
+
+<style>
+/* ── Design tokens ────────────────────────────────────────── */
+/* Layout: full-bleed sections, centered max-1200 inner, cards in CSS grid */
+:root {
+  --bg:        #ffffff;
+  --bg2:       #f5f3ff;
+  --fg:        #1e1b4b;
+  --fg2:       #4c4980;
+  --fg3:       #7c7aa8;
+  --card:      #ffffff;
+  --card-b:    #ede9fe;
+  --border:    #e0d9f9;
+
+  /* Gradient accent */
+  --g1: #7c3aed;
+  --g2: #ec4899;
+  --g3: #06b6d4;
+  --grad: linear-gradient(135deg, var(--g1), var(--g2));
+  --grad2: linear-gradient(135deg, var(--g2), var(--g3));
+  --grad3: linear-gradient(135deg, var(--g1), var(--g3));
+
+  /* Per-category colors */
+  --iot:    #10b981;  /* emerald */
+  --ai:     #8b5cf6;  /* violet */
+  --sys:    #f59e0b;  /* amber */
+  --web:    #3b82f6;  /* blue */
+  --tools:  #ec4899;  /* pink */
+
+  --radius: 16px;
+  --shadow: 0 4px 24px rgba(124,58,237,.10);
+  --shadow-h: 0 8px 40px rgba(124,58,237,.22);
+
+  font-family: 'DM Sans', system-ui, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:     #0d0b1a;
+    --bg2:    #12102a;
+    --fg:     #ede9fe;
+    --fg2:    #c4b8f7;
+    --fg3:    #8b7fc2;
+    --card:   #1a1730;
+    --card-b: #221d40;
+    --border: #2e2756;
+    --shadow: 0 4px 24px rgba(0,0,0,.4);
+    --shadow-h: 0 8px 40px rgba(124,58,237,.35);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg:     #0d0b1a;
+  --bg2:    #12102a;
+  --fg:     #ede9fe;
+  --fg2:    #c4b8f7;
+  --fg3:    #8b7fc2;
+  --card:   #1a1730;
+  --card-b: #221d40;
+  --border: #2e2756;
+  --shadow: 0 4px 24px rgba(0,0,0,.4);
+  --shadow-h: 0 8px 40px rgba(124,58,237,.35);
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+/* ── Utilities ──────────────────────────────────────────── */
+.inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding-left:  max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+}
+.grad-text {
+  background: var(--grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.grad-text2 {
+  background: var(--grad2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+h1, h2, h3 { font-family: 'Outfit', sans-serif; }
+h2 { font-size: clamp(1.75rem, 4vw, 2.4rem); font-weight: 800; text-wrap: balance; }
+h3 { font-size: 1.15rem; font-weight: 700; }
+
+/* ── NAV ──────────────────────────────────────────────── */
+nav {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 50;
+  background: color-mix(in srgb, var(--bg) 80%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+nav .inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 14px;
+}
+.nav-logo {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 900;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+.nav-links {
+  display: flex;
+  gap: 8px;
+  list-style: none;
+  flex-wrap: wrap;
+}
+.nav-links a {
+  color: var(--fg2);
+  text-decoration: none;
+  font-size: .875rem;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 999px;
+  transition: background .2s, color .2s;
+}
+.nav-links a:hover {
+  background: var(--card-b);
+  color: var(--g1);
+}
+
+/* ── HERO ──────────────────────────────────────────────── */
+#hero {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(72px, 12vw, 120px);
+}
+.hero-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: .35;
+  pointer-events: none;
+}
+.blob1 { width: 520px; height: 520px; background: radial-gradient(circle, #7c3aed, transparent 70%); top: -120px; left: -100px; }
+.blob2 { width: 420px; height: 420px; background: radial-gradient(circle, #ec4899, transparent 70%); bottom: -80px; right: -80px; }
+.blob3 { width: 300px; height: 300px; background: radial-gradient(circle, #06b6d4, transparent 70%); top: 40%; left: 55%; }
+
+.hero-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+.hero-text { flex: 1; min-width: 280px; }
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--card-b);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--g1);
+  margin-bottom: 20px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.hero-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(2.8rem, 7vw, 5rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 8px;
+}
+.hero-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-weight: 400;
+  color: var(--fg2);
+  margin-bottom: 24px;
+}
+.hero-desc {
+  color: var(--fg2);
+  max-width: 480px;
+  margin-bottom: 32px;
+  font-size: 1rem;
+}
+.hero-cta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: .95rem;
+  text-decoration: none;
+  transition: transform .2s, box-shadow .2s;
+  cursor: pointer;
+  border: none;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-h); }
+.btn-primary { background: var(--grad); color: #fff; }
+.btn-outline {
+  background: transparent;
+  border: 2px solid var(--border);
+  color: var(--fg);
+}
+.btn-outline:hover { border-color: var(--g1); color: var(--g1); box-shadow: none; }
+
+.hero-visual {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 240px;
+}
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.stat-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+.stat-card:nth-child(1) .stat-icon { background: linear-gradient(135deg,#7c3aed22,#7c3aed44); }
+.stat-card:nth-child(2) .stat-icon { background: linear-gradient(135deg,#ec489922,#ec489944); }
+.stat-card:nth-child(3) .stat-icon { background: linear-gradient(135deg,#06b6d422,#06b6d444); }
+.stat-num { font-family: 'Outfit', sans-serif; font-size: 1.5rem; font-weight: 800; line-height: 1; }
+.stat-label { font-size: .78rem; color: var(--fg3); margin-top: 2px; }
+
+/* ── SECTION WRAPPER ───────────────────────────────────── */
+.section { padding-block: clamp(56px, 8vw, 96px); }
+.section-alt { background: var(--bg2); }
+.section-head {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.section-eyebrow {
+  display: inline-block;
+  font-size: .78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--g1);
+  margin-bottom: 10px;
+}
+
+/* ── ABOUT ──────────────────────────────────────────────── */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+@media (max-width: 700px) { .about-grid { grid-template-columns: 1fr; } }
+.about-text p { color: var(--fg2); margin-bottom: 16px; }
+.lang-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+.lang-chip {
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: .85rem;
+}
+.lang-chip.fr { background: linear-gradient(135deg,#3b82f622,#3b82f644); color: #3b82f6; border: 1px solid #3b82f633; }
+.lang-chip.en { background: linear-gradient(135deg,#10b98122,#10b98144); color: #10b981; border: 1px solid #10b98133; }
+.lang-chip.ar { background: linear-gradient(135deg,#f59e0b22,#f59e0b44); color: #d97706; border: 1px solid #f59e0b33; }
+
+.edu-list { display: flex; flex-direction: column; gap: 16px; }
+.edu-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  border-left: 4px solid;
+  box-shadow: var(--shadow);
+}
+.edu-card:nth-child(1) { border-left-color: var(--g1); }
+.edu-card:nth-child(2) { border-left-color: var(--g2); }
+.edu-period { font-size: .78rem; color: var(--fg3); font-weight: 600; letter-spacing: .05em; text-transform: uppercase; margin-bottom: 4px; }
+.edu-deg { font-weight: 700; font-size: .95rem; margin-bottom: 2px; }
+.edu-inst { font-size: .85rem; color: var(--fg2); }
+
+/* ── SKILLS ──────────────────────────────────────────────── */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+.skill-group {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: var(--shadow);
+  transition: transform .2s, box-shadow .2s;
+}
+.skill-group:hover { transform: translateY(-4px); box-shadow: var(--shadow-h); }
+.sg-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: .95rem;
+}
+.sg-icon {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+}
+.sg-iot  .sg-icon { background: #10b98122; color: var(--iot); }
+.sg-ai   .sg-icon { background: #8b5cf622; color: var(--ai); }
+.sg-sys  .sg-icon { background: #f59e0b22; color: var(--sys); }
+.sg-web  .sg-icon { background: #3b82f622; color: var(--web); }
+.sg-iot  .sg-header { color: var(--iot); }
+.sg-ai   .sg-header { color: var(--ai); }
+.sg-sys  .sg-header { color: var(--sys); }
+.sg-web  .sg-header { color: var(--web); }
+.badge-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.badge {
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: .78rem;
+  font-weight: 600;
+}
+.sg-iot  .badge { background: #10b98118; color: var(--iot); border: 1px solid #10b98133; }
+.sg-ai   .badge { background: #8b5cf618; color: var(--ai);  border: 1px solid #8b5cf633; }
+.sg-sys  .badge { background: #f59e0b18; color: var(--sys); border: 1px solid #f59e0b33; }
+.sg-web  .badge { background: #3b82f618; color: var(--web); border: 1px solid #3b82f633; }
+
+/* ── PROJECTS ──────────────────────────────────────────── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+.project-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform .25s, box-shadow .25s;
+  display: flex;
+  flex-direction: column;
+}
+.project-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-h); }
+.pc-banner {
+  height: 6px;
+  background: var(--grad);
+}
+.pc-banner.b2 { background: var(--grad2); }
+.pc-banner.b3 { background: var(--grad3); }
+.pc-banner.b4 { background: linear-gradient(135deg, var(--iot), #06b6d4); }
+.pc-banner.b5 { background: linear-gradient(135deg, var(--sys), var(--g2)); }
+.pc-body { padding: 22px; flex: 1; display: flex; flex-direction: column; }
+.pc-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+.pc-tag {
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+}
+.t-c    { background: #3b82f618; color: #3b82f6; border: 1px solid #3b82f633; }
+.t-py   { background: #f59e0b18; color: #d97706; border: 1px solid #f59e0b33; }
+.t-iot  { background: #10b98118; color: var(--iot); border: 1px solid #10b98133; }
+.t-ai   { background: #8b5cf618; color: var(--ai);  border: 1px solid #8b5cf633; }
+.t-rl   { background: #ec489918; color: var(--g2); border: 1px solid #ec489933; }
+.pc-title { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.1rem; margin-bottom: 8px; }
+.pc-desc { font-size: .9rem; color: var(--fg2); flex: 1; margin-bottom: 18px; }
+.pc-footer { display: flex; align-items: center; justify-content: space-between; }
+.pc-course { font-size: .78rem; color: var(--fg3); font-weight: 500; }
+.pc-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--g1);
+  text-decoration: none;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  transition: background .2s, border-color .2s;
+}
+.pc-link:hover { background: var(--card-b); border-color: var(--g1); }
+
+/* ── CONTACT ──────────────────────────────────────────── */
+.contact-box {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+.contact-box h2 { margin-bottom: 16px; }
+.contact-box p { color: var(--fg2); margin-bottom: 32px; }
+.contact-chips { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+.contact-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: .9rem;
+  text-decoration: none;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--fg);
+  transition: transform .2s, box-shadow .2s, border-color .2s;
+  box-shadow: var(--shadow);
+}
+.contact-chip:hover { transform: translateY(-3px); box-shadow: var(--shadow-h); border-color: var(--g1); }
+.chip-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── FOOTER ──────────────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--border);
+  padding-block: 28px;
+  text-align: center;
+  font-size: .82rem;
+  color: var(--fg3);
+}
+footer span { color: var(--g2); }
+
+/* ── ANIMATIONS ──────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .project-card, .skill-group, .stat-card {
+    transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s;
+  }
+}
+</style>
+
+<!-- NAV -->
+<nav>
+  <div class="inner">
+    <a class="nav-logo grad-text" href="#hero">IA.</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero" class="section">
+  <div class="hero-blob blob1"></div>
+  <div class="hero-blob blob2"></div>
+  <div class="hero-blob blob3"></div>
+  <div class="inner hero-inner">
+    <div class="hero-text">
+      <div class="hero-tag">🎓 EURECOM · Sophia Antipolis</div>
+      <h1 class="hero-name">
+        <span class="grad-text">Ikram</span><br>Aziz
+      </h1>
+      <p class="hero-title">Master's in IoT · AI &amp; Embedded Systems Engineer</p>
+      <p class="hero-desc">Building intelligent systems at the intersection of AI, IoT, and software engineering — from autonomous robots to medical imaging to agentic AI research.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#projects">View Projects</a>
+        <a class="btn btn-outline" href="#contact">Get in touch</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="stat-card">
+        <div class="stat-icon">🤖</div>
+        <div>
+          <div class="stat-num grad-text">4+</div>
+          <div class="stat-label">Research & Engineering Projects</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🧠</div>
+        <div>
+          <div class="stat-num grad-text2">0.98</div>
+          <div class="stat-label">Best AUC — Medical AI</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🌍</div>
+        <div>
+          <div class="stat-num" style="background:var(--grad3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">3</div>
+          <div class="stat-label">Languages spoken</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section section-alt">
+  <div class="inner">
+    <div class="section-head">
+      <span class="section-eyebrow">Who I am</span>
+      <h2>About <span class="grad-text">Me</span></h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a Master's student in <strong>Internet of Things</strong> at <strong>EURECOM</strong>, France, with a background in Information Systems and Digital Transformation from Université Hassan 1er, Morocco.</p>
+        <p>I'm passionate about the entire stack — from ARM cross-compiled C running on EV3 robots to PyTorch CNNs diagnosing chest X-rays, to surveying the emerging landscape of agentic AI platforms.</p>
+        <p>Currently exploring multi-agent systems, LLM orchestration, and how intelligence scales across distributed embedded devices.</p>
+        <div class="lang-row">
+          <span class="lang-chip fr">🇫🇷 French</span>
+          <span class="lang-chip en">🇬🇧 English</span>
+          <span class="lang-chip ar">🇲🇦 Arabic</span>
+        </div>
+      </div>
+      <div class="edu-list">
+        <div class="edu-card">
+          <div class="edu-period">2024 – 2026</div>
+          <div class="edu-deg">MSc Internet of Things (IoT)</div>
+          <div class="edu-inst">EURECOM — Sophia Antipolis, France</div>
+        </div>
+        <div class="edu-card">
+          <div class="edu-period">2021 – 2024</div>
+          <div class="edu-deg">LST Système d'Information &amp; Transformation Digitale</div>
+          <div class="edu-inst">Université Hassan 1er — Settat, Morocco</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="section">
+  <div class="inner">
+    <div class="section-head">
+      <span class="section-eyebrow">What I work with</span>
+      <h2>Skills &amp; <span class="grad-text">Tech Stack</span></h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group sg-ai">
+        <div class="sg-header">
+          <div class="sg-icon">🧠</div>
+          AI &amp; Machine Learning
+        </div>
+        <div class="badge-row">
+          <span class="badge">Python</span>
+          <span class="badge">PyTorch</span>
+          <span class="badge">TensorFlow</span>
+          <span class="badge">scikit-learn</span>
+          <span class="badge">Deep Learning</span>
+          <span class="badge">Reinforcement Learning</span>
+          <span class="badge">Computer Vision</span>
+          <span class="badge">OpenCV</span>
+          <span class="badge">Agentic AI</span>
+        </div>
+      </div>
+      <div class="skill-group sg-iot">
+        <div class="sg-header">
+          <div class="sg-icon">📡</div>
+          IoT &amp; Embedded
+        </div>
+        <div class="badge-row">
+          <span class="badge">C / C++</span>
+          <span class="badge">Arduino</span>
+          <span class="badge">LEGO EV3</span>
+          <span class="badge">Raspberry Pi</span>
+          <span class="badge">MQTT</span>
+          <span class="badge">Sensors</span>
+          <span class="badge">Odometry</span>
+          <span class="badge">ev3dev</span>
+        </div>
+      </div>
+      <div class="skill-group sg-sys">
+        <div class="sg-header">
+          <div class="sg-icon">⚙️</div>
+          Systems &amp; Dev
+        </div>
+        <div class="badge-row">
+          <span class="badge">Linux</span>
+          <span class="badge">Git</span>
+          <span class="badge">Docker</span>
+          <span class="badge">Make</span>
+          <span class="badge">Cross-compilation</span>
+          <span class="badge">Bash</span>
+          <span class="badge">Networks</span>
+          <span class="badge">Security</span>
+        </div>
+      </div>
+      <div class="skill-group sg-web">
+        <div class="sg-header">
+          <div class="sg-icon">🌐</div>
+          Web &amp; Data
+        </div>
+        <div class="badge-row">
+          <span class="badge">JavaScript</span>
+          <span class="badge">HTML / CSS</span>
+          <span class="badge">Pandas</span>
+          <span class="badge">NumPy</span>
+          <span class="badge">Matplotlib</span>
+          <span class="badge">SQL</span>
+          <span class="badge">UML</span>
+          <span class="badge">Odoo ERP</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="section section-alt">
+  <div class="inner">
+    <div class="section-head">
+      <span class="section-eyebrow">What I've built</span>
+      <h2>Featured <span class="grad-text">Projects</span></h2>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="pc-banner b2"></div>
+        <div class="pc-body">
+          <div class="pc-tags">
+            <span class="pc-tag t-py">PyTorch</span>
+            <span class="pc-tag t-ai">Deep Learning</span>
+            <span class="pc-tag t-ai">CNN</span>
+          </div>
+          <div class="pc-title">Chest X-Ray Abnormality Detection</div>
+          <p class="pc-desc">CNN ensemble (VGG16/19 + ResNet50) trained on 112,120 NIH X-rays across 14 pathology classes. Occlusion sensitivity maps make the model explainable. Best AUC: 0.98.</p>
+          <div class="pc-footer">
+            <span class="pc-course">EURECOM · Deep Learning · 2026</span>
+            <a class="pc-link" href="https://github.com/ikramaziz7/chest-xray-detection" target="_blank">GitHub →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="pc-banner b3"></div>
+        <div class="pc-body">
+          <div class="pc-tags">
+            <span class="pc-tag t-ai">Agentic AI</span>
+            <span class="pc-tag t-ai">MCP</span>
+            <span class="pc-tag t-ai">A2A Protocol</span>
+          </div>
+          <div class="pc-title">Agentic AI Platforms Analysis</div>
+          <p class="pc-desc">17-page research report surveying platforms (Agntcy, OpenSlice, W3C A2A, MCP, GITER) for autonomous multi-agent ecosystems. Uses a 6-layer analysis framework. Supervised by Prof. Jérôme Härri.</p>
+          <div class="pc-footer">
+            <span class="pc-course">EURECOM · Research · June 2026</span>
+            <a class="pc-link" href="https://github.com/ikramaziz7/agentic-ai-platforms" target="_blank">GitHub →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="pc-banner b1"></div>
+        <div class="pc-body">
+          <div class="pc-tags">
+            <span class="pc-tag t-c">C</span>
+            <span class="pc-tag t-iot">EV3 Robot</span>
+            <span class="pc-tag t-iot">FSM</span>
+          </div>
+          <div class="pc-title">E.T. Robot — Autonomous Mineral Collector</div>
+          <p class="pc-desc">Autonomous LEGO EV3 robot with an 8-state FSM: explore, detect, pick up minerals, return to base. 2D odometry from encoders + gyroscope. Cross-compiled C for ARM ev3dev Linux.</p>
+          <div class="pc-footer">
+            <span class="pc-course">EURECOM / Télécom Paris · OS · 2025</span>
+            <a class="pc-link" href="https://github.com/ikramaziz7/et-robot" target="_blank">GitHub →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="pc-banner b4"></div>
+        <div class="pc-body">
+          <div class="pc-tags">
+            <span class="pc-tag t-iot">Arduino</span>
+            <span class="pc-tag t-iot">IoT</span>
+            <span class="pc-tag t-iot">MQTT</span>
+          </div>
+          <div class="pc-title">Smart Parking IoT — ParkGo</div>
+          <p class="pc-desc">Real-time smart parking system with ultrasonic sensors, live occupancy dashboard, and data-driven analytics. Designed to manage urban traffic for large-scale events in Morocco.</p>
+          <div class="pc-footer">
+            <span class="pc-course">Université Hassan 1er · IoT · 2024</span>
+            <a class="pc-link" href="https://github.com/ikramaziz7/smart-parking-iot" target="_blank">GitHub →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="pc-banner b5"></div>
+        <div class="pc-body">
+          <div class="pc-tags">
+            <span class="pc-tag t-py">Python</span>
+            <span class="pc-tag t-rl">Reinforcement Learning</span>
+            <span class="pc-tag t-rl">DQN</span>
+          </div>
+          <div class="pc-title">Snake RL — Deep Q-Network Agent</div>
+          <p class="pc-desc">Trained a DQN agent to play Snake from scratch. Explored reward shaping, epsilon-greedy exploration and experience replay to stabilise training.</p>
+          <div class="pc-footer">
+            <span class="pc-course">EURECOM · Reinforcement Learning · 2025</span>
+            <a class="pc-link" href="https://github.com/ikramaziz7" target="_blank">GitHub →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="pc-banner" style="background:linear-gradient(135deg,#f59e0b,#ef4444)"></div>
+        <div class="pc-body">
+          <div class="pc-tags">
+            <span class="pc-tag t-py">Odoo</span>
+            <span class="pc-tag t-iot">ERP</span>
+            <span class="pc-tag" style="background:#ef444418;color:#ef4444;border:1px solid #ef444433">Business</span>
+          </div>
+          <div class="pc-title">Odoo ERP Implementation</div>
+          <p class="pc-desc">Designed and implemented a tailored Odoo ERP solution for a local SME, covering inventory, invoicing and CRM modules. Customised workflows and generated business reports.</p>
+          <div class="pc-footer">
+            <span class="pc-course">Université Hassan 1er · 2023</span>
+            <a class="pc-link" href="https://github.com/ikramaziz7" target="_blank">GitHub →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section">
+  <div class="inner">
+    <div class="contact-box">
+      <span class="section-eyebrow">Let's connect</span>
+      <h2>Get in <span class="grad-text">Touch</span></h2>
+      <p>Whether it's a research collaboration, an internship opportunity, or just a conversation about AI and IoT — I'd love to hear from you.</p>
+      <div class="contact-chips">
+        <a class="contact-chip" href="https://github.com/ikramaziz7" target="_blank">
+          <span class="chip-dot" style="background:#6e5494"></span>
+          github.com/ikramaziz7
+        </a>
+        <div class="contact-chip" style="cursor:default">
+          <span class="chip-dot" style="background:#ea4335"></span>
+          ikram.aziz@eurecom.fr
+        </div>
+        <div class="contact-chip" style="cursor:default">
+          <span class="chip-dot" style="background:#10b981"></span>
+          Sophia Antipolis, France
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="inner">
+    Built with <span>♥</span> by Ikram Aziz · EURECOM Master IoT · 2026
+  </div>
+</footer>
+
+</body></html>
